@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    android:padding="10dp"
+    tools:context=".CrearNotasActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="226dp"
+        android:layout_height="217dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/buttonGaleria"
+        android:layout_width="147dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/black"
+        android:drawableLeft="@drawable/ic_baseline_insert_photo_24"
+        android:padding="8dp"
+        android:text="Galeria"
+        android:textColor="@android:color/white"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/buttonSacarFotos"
+        android:layout_width="145dp"
+        android:layout_height="42dp"
+
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:background="@android:color/black"
+        android:drawableLeft="@drawable/ic_baseline_camera_alt_24"
+        android:padding="8dp"
+        android:text="Tomar Fotos"
+        android:textColor="@android:color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toEndOf="@+id/buttonGaleria"
+        app:layout_constraintTop_toTopOf="@+id/buttonGaleria" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="392dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:background="#28C61C"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="DESCRIPCIÓN"
+        android:textColor="#EBE8EF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSacarFotos" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="396dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <EditText
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:hint="Escribir descripción aquí..."
+            android:padding="15dp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_editor_absoluteX="0dp"></EditText>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="116dp"
+        android:layout_height="38dp"
+        android:background="@android:color/holo_blue_dark"
+        android:drawableLeft="@drawable/ic_baseline_save_24"
+        android:padding="6dp"
+        android:text="Guardar"
+        android:textColor="@android:color/white"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelar"
+        app:layout_constraintTop_toTopOf="@+id/btnCancelar"
+        app:layout_constraintVertical_bias="0.0"></Button>
+
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="116dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_red_dark"
+        android:drawableLeft="@drawable/ic_baseline_cancel_24"
+        android:padding="5dp"
+        android:text="Cancelar"
+        android:textColor="@android:color/white"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"></Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
