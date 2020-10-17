@@ -8,7 +8,6 @@
     android:padding="10dp"
     tools:context=".CrearNotasActivity">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="226dp"

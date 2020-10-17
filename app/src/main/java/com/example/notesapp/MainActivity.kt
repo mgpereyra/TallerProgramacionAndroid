@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navegarVerNotas()
         navegarCrearNotas()
-    }
+    } // Comentario de prueba
 
     private fun navegarVerNotas() {
         buttonVerNotas.setOnClickListener(View.OnClickListener {
