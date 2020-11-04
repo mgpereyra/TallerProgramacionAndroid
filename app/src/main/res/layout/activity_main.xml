@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#28C61C"
-        android:text="Ver Notas"
+        android:text="@string/ver_notas"
         android:textColor="#EBE8EF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +27,20 @@
         android:layout_marginTop="56dp"
         android:textColor="#EBE8EF"
         android:background="#28C61C"
-        android:text="Crear Notas"
+        android:text="@string/crear_notas"
         app:layout_constraintEnd_toEndOf="@+id/buttonVerNotas"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/buttonVerNotas"
         app:layout_constraintTop_toBottomOf="@+id/buttonVerNotas"/>
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test_DB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCrearNuevasNotas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

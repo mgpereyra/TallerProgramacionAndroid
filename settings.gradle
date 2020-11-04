@@ -1,3 +1,4 @@
+include ':activityDB'
 include ':crearNotas'
 include ':notas'
 include ':app'
