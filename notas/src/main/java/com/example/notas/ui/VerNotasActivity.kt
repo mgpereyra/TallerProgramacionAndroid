@@ -41,7 +41,7 @@ class VerNotasActivity : AppCompatActivity() {
         navegarHaciaAtras()
         levantarDatos(this)
     }
-
+/*
     private fun borrar() {
         conectardb()
         lifecycleScope.launch {
@@ -49,7 +49,7 @@ class VerNotasActivity : AppCompatActivity() {
             var query = db?.notaDAO()?.deleteAll()
             }
     }
-
+*/
     fun levantarDatos(verNotasActivity: VerNotasActivity) {
         conectardb()
         if(conectado){
@@ -65,6 +65,7 @@ class VerNotasActivity : AppCompatActivity() {
                 }
                 // PASARLE LISTA AL VIEWMODEL
                 /*Setup ViewModels*/
+                notas.reverse()
                 viewModel = ViewModelProviders.of(verNotasActivity).get(NotasViewModel::class.java)
                 viewModel.getNotasList().observe(verNotasActivity, Observer {
                     madapter.setearLista(notas)

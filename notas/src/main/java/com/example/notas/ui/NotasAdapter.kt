@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notas.R
-import com.example.notas.data.Nota
 import com.example.notas.data.NotaEntity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.notas_items.view.*

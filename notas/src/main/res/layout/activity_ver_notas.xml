@@ -25,7 +25,7 @@
         android:layout_height="44dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/holo_green_dark"
-        android:text="Volver"
+        android:text="@string/volver"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
