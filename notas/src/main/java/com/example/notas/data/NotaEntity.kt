@@ -16,4 +16,5 @@ data class NotaEntity(
 
     @ColumnInfo(name="srcImagen")
     val srcImagen:String
+
 )

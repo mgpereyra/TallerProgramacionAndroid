@@ -10,6 +10,9 @@ interface NotaDAO { // Acá también pueden ir insert, update, etc...
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarNota(entity: NotaEntity)
 
+    @Query("DELETE FROM notas")
+    suspend fun deleteAll()
+
     @Delete
     suspend fun delete(entity: NotaEntity)
 }

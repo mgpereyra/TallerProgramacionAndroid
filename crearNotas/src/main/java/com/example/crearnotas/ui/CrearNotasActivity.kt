@@ -71,21 +71,19 @@ class CrearNotasActivity : AppCompatActivity() {
                     if(descripcion==""||pathImagen==""){
                         Toast.makeText(
                             applicationContext,
-                            "¡Debe ingresar una imagen y una descripción!",
+                            "Debe ingresar una descripción y una imagen",
                             Toast.LENGTH_SHORT
                         ).show()
                     }else{
-                        Toast.makeText(
-                            applicationContext,
-                            "Se va a guardar la nota",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         lifecycleScope.launch {
                             db?.notaDAO()?.insertarNota(miNota)
-                            Toast.makeText(applicationContext,
-                                "Existen "+db?.notaDAO()?.getAll()?.size+" registros en la db",
-                                Toast.LENGTH_SHORT).show()
                         }
+                        Toast.makeText(
+                            applicationContext,
+                            "Se ha guardado la nota",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        onBackPressed()
                     }
                 }else{
                     Toast.makeText(applicationContext,"No estás conectado a la db",Toast.LENGTH_SHORT).show()
