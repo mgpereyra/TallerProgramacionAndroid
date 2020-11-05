@@ -1,10 +1,14 @@
 package com.example.crearnotas.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -30,9 +34,11 @@ import java.util.*
 
 class CrearNotasActivity : AppCompatActivity() {
 
-    var pathImagen = ""
     var db: NotaDatabase? = null
     var conectado = false
+    var pathImagen = ""
+    private val REQUEST_CAMERA = 1002
+    var photo:Uri?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,38 +107,52 @@ class CrearNotasActivity : AppCompatActivity() {
         })
     }
 
-    private fun tomarFotos() {
-        // PREGUNTAR POR LOS PERMISOS DE LA CÁMARA ANTES DE ESTO...
-        if(intent.resolveActivity(this.packageManager)!=null) {
-            buttonSacarFotos.setOnClickListener {
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                    // Ensure that there's a camera activity to handle the intent
-                    takePictureIntent.resolveActivity(packageManager)?.also {
-                        // Create the File where the photo should go
-                        val photoFile: File? = try {
-                            createImageFile()
-                        } catch (ex: IOException) {
-                            // Error occurred while creating the File
-                            null
-                        }
-                        // Continue only if the File was successfully created
-                        photoFile?.also {
-                            val photoURI: Uri = FileProvider.getUriForFile(
-                                this,
-                                "/storage/emulated/0/DCIM/Camera",
-                                it
-                            )
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                            startActivityForResult(takePictureIntent, 1)
-                        }
-                    }
-                }
+    private fun tomarFotos(){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            if(checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
+                ||checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED){
+                /*Pedirle Permiso al usuario*/
+                val permisosCamara = arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permisosCamara,REQUEST_CAMERA)
+            }else{
+                openPhoto()
             }
         }else{
-            // HACER QUE EL USUARIO ACTIVE EL PERMISO...
-            Toast.makeText(this,"No se ha podido abrir la camara",Toast.LENGTH_SHORT).show()
+            openPhoto()
         }
     }
+
+    private fun openPhoto() {
+        val value = ContentValues()
+        value.put(MediaStore.Images.Media.TITLE,"Nueva Imagen")
+        photo=contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,value)
+        buttonSacarFotos.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val camaraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                camaraIntent.putExtra(MediaStore.EXTRA_OUTPUT,photo)
+                startActivityForResult(camaraIntent,REQUEST_CAMERA)
+            }
+        })
+    }
+
+    /*
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            REQUEST_CAMERA -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openPhoto()
+                } else {
+                    Toast.makeText(this, "No podes abrir la camara", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    */
 
     fun navegarHaciaAtras() {
         btnCancelar.setOnClickListener { onBackPressed() }
@@ -144,11 +164,10 @@ class CrearNotasActivity : AppCompatActivity() {
             pathImagen=data!!.data.toString()
             imageView.setImageURI(data!!.data)
         }
-        if (requestCode == 200 && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
             try{
-                createImageFile()
-                val takeImage = data!!.extras!!.get("data") as Bitmap // Acá explota xd
-                imageView.setImageBitmap(takeImage)
+                imageView.setImageURI(photo)
+                pathImagen=photo.toString()
             }catch(e: Exception){
                 Toast.makeText(this,"No se ha podido guardar la foto",Toast.LENGTH_SHORT).show()
             }
