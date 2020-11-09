@@ -40,6 +40,11 @@ class CrearNotasActivity : AppCompatActivity() {
     private val REQUEST_CAMERA = 1002
     var photo:Uri?=null
 
+    // unificar en módulo app
+    // * falta implementar el viewmodel, livedata y el patrón de repositorio + inyección
+    // unificar en libraries para que los módulos apunten ahí (mover los DAOs ahí)
+    // darle "cariño" a las vistas
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_notas)
