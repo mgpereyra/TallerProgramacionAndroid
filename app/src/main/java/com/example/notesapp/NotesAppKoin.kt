@@ -1,0 +1,27 @@
+package com.example.notesapp
+
+import android.app.Application
+import com.example.notesapp.data.RoomNotasRepository
+import com.example.notesapp.model.NotaRepository
+import com.example.notesapp.ui.NotasViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+
+class NotesAppKoin : Application() {
+    val appModule = module {
+        //single<RoomNotasRepositoryInterface>{ RoomNotasRepository(notaDAO = NotaDAO()) }
+        single<NotaRepository> { RoomNotasRepository(get()) }
+        viewModel { NotasViewModel(get()) }
+    }
+    override fun onCreate() {
+        super.onCreate()
+        startKoin{
+            androidLogger()
+            androidContext(this@NotesAppKoin)
+            modules(appModule)
+        }
+    }
+}

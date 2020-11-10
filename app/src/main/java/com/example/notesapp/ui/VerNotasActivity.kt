@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.databinding.ActivityVerNotasBinding
 import kotlinx.android.synthetic.main.activity_crear_notas.*
 import kotlinx.android.synthetic.main.activity_ver_notas.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class VerNotasActivity : AppCompatActivity() {
-    private val viewModel: NotasViewModel by viewModels {
+    /*private val viewModel: NotasViewModel by viewModels {
         NotasViewModelFactory(
             applicationContext
         )
-    }
+    }*/
     private lateinit var adapter: NotasAdapter
     private lateinit var binding: ActivityVerNotasBinding
+    private val viewModel: NotasViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
