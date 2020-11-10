@@ -2,4 +2,12 @@
     <string name="app_name">NotesApp</string>
     <string name="crear_notas">Crear Notas</string>
     <string name="ver_notas">Ver Notas</string>
+    <string name="descripci_n">DESCRIPCIÓN</string>
+    <string name="volver">Volver</string>
+    <string name="guardar">Guardar</string>
+    <string name="escribir_descripcion_aqu">Escribir descripción aquí...</string>
+    <string name="tomar_fotos">Tomar Fotos</string>
+    <string name="galeria">Galeria</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="su_imagen_aqu">Su imagen aquí</string>
 </resources>

@@ -1,9 +1,0 @@
-<resources>
-    <string name="guardar">Guardar</string>
-    <string name="escribir_descripcion_aqu">Escribir descripción aquí...</string>
-    <string name="descripci_n">DESCRIPCIÓN</string>
-    <string name="tomar_fotos">Tomar Fotos</string>
-    <string name="galeria">Galeria</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="su_imagen_aqu">Su imagen aquí</string>
-</resources>

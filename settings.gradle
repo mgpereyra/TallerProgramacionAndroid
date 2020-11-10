@@ -1,4 +1,2 @@
-include ':crearNotas'
-include ':notas'
 include ':app'
 rootProject.name = "NotesApp"

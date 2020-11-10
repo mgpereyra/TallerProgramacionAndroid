@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/DeviceDefault.ButtonBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:padding="20dp">
+    android:addStatesFromChildren="false"
+    android:background="@android:color/holo_blue_light"
+    android:padding="20dp"
+    tools:context=".ui.MainActivity">
 
     <Button
         android:id="@+id/buttonVerNotas"
@@ -14,6 +17,7 @@
         android:background="#28C61C"
         android:text="@string/ver_notas"
         android:textColor="#EBE8EF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:textColor="#EBE8EF"
         android:background="#28C61C"
         android:text="@string/crear_notas"
+        android:textColor="#EBE8EF"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/buttonVerNotas"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/buttonVerNotas"
-        app:layout_constraintTop_toBottomOf="@+id/buttonVerNotas"/>
+        app:layout_constraintTop_toBottomOf="@+id/buttonVerNotas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
