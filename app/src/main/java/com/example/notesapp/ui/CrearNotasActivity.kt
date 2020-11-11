@@ -13,13 +13,22 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.notesapp.NotesAppKoin
 import com.example.notesapp.R
+import com.example.notesapp.data.NotaDAO
+import com.example.notesapp.data.NotaDAO_Impl
+import com.example.notesapp.data.NotaDatabase
+import com.example.notesapp.data.NotaEntity
+import com.example.notesapp.databinding.ActivityCrearNotasBinding
+import com.example.notesapp.databinding.ActivityVerNotasBinding
+import com.example.notesapp.model.Nota
 import kotlinx.android.synthetic.main.activity_crear_notas.*
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -27,67 +36,49 @@ import java.util.*
 
 class CrearNotasActivity : AppCompatActivity() {
 
-    var db: com.example.notesapp.data.NotaDatabase? = null
-    var conectado = false
+    private val viewModel: NotasViewModel by viewModel()
+    private lateinit var binding: ActivityCrearNotasBinding
+
     var pathImagen = ""
     private val REQUEST_CAMERA = 1002
     var photo:Uri?=null
 
-    // * falta inyección
-    // darle "cariño" a las vistas
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crear_notas)
-        comprobarPermisos()
+        binding = ActivityCrearNotasBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         buscarGaleria()
+        comprobarPermisos()
         tomarFotos()
         cancelar()
         guardar()
     }
 
-    private fun conectardb(){
-        try{
-            db = Room.databaseBuilder(
-                applicationContext,
-                com.example.notesapp.data.NotaDatabase::class.java, "database-notas"
-            ).build()
-            conectado=true
-        }catch (e: Exception){
-            Toast.makeText(applicationContext,"Error en con la base de datos...",Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun guardar() {
         btnGuardar.setOnClickListener(object: View.OnClickListener {
             override fun onClick(p: View) {
-                conectardb()
-                if(conectado){
-                    val descripcionNota = findViewById<EditText>(R.id.textDescription)
-                    val descripcion = descripcionNota.getText().toString()
-                    val miNota = com.example.notesapp.data.NotaEntity(
-                        description = descripcion,
-                        srcImagen = pathImagen
-                    )
-                    if(descripcion==""||pathImagen==""){
-                        Toast.makeText(
-                            applicationContext,
-                            "Debe ingresar una descripción y una imagen",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }else{
-                        lifecycleScope.launch {
-                            db?.notaDAO()?.insertarNota(miNota)
-                        }
-                        Toast.makeText(
-                            applicationContext,
-                            "Se ha guardado la nota",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        onBackPressed()
-                    }
+                val descripcionNota = findViewById<EditText>(R.id.textDescription)
+                val descripcion = descripcionNota.getText().toString()
+                val miNota = NotaEntity(
+                    description = descripcion,
+                    srcImagen = pathImagen
+                )
+                if(descripcion==""||pathImagen==""){
+                    Toast.makeText(
+                        applicationContext,
+                        "Debe ingresar una descripción y una imagen",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }else{
-                    Toast.makeText(applicationContext,"No estás conectado a la db",Toast.LENGTH_SHORT).show()
+                    lifecycleScope.launch {
+                        viewModel.insertarEnDatabase(miNota)
+                    }
+                    Toast.makeText(
+                        applicationContext,
+                        "Se ha guardado la nota",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    onBackPressed()
                 }
             }
         })
@@ -134,7 +125,10 @@ class CrearNotasActivity : AppCompatActivity() {
                 openPhoto()
             }
         }else{
-            openPhoto()
+            Toast.makeText(this,
+                "Función no disponible en esta versión de Android...",
+                Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -150,25 +144,6 @@ class CrearNotasActivity : AppCompatActivity() {
             }
         })
     }
-
-    /*
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
-            REQUEST_CAMERA -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openPhoto()
-                } else {
-                    Toast.makeText(this, "No podes abrir la camara", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-    */
 
     private fun cancelar() {
         btnCancelar.setOnClickListener { onBackPressed() }
@@ -207,5 +182,4 @@ class CrearNotasActivity : AppCompatActivity() {
             currentPhotoPath = absolutePath
         }
     }
-
 }

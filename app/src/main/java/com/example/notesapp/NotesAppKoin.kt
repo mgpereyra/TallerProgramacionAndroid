@@ -1,6 +1,10 @@
 package com.example.notesapp
 
 import android.app.Application
+import android.content.Context
+import androidx.room.Room
+import com.example.notesapp.data.NotaDAO
+import com.example.notesapp.data.NotaDatabase
 import com.example.notesapp.data.RoomNotasRepository
 import com.example.notesapp.model.NotaRepository
 import com.example.notesapp.ui.NotasViewModel
@@ -12,10 +16,11 @@ import org.koin.dsl.module
 
 class NotesAppKoin : Application() {
     val appModule = module {
-        //single<RoomNotasRepositoryInterface>{ RoomNotasRepository(notaDAO = NotaDAO()) }
+        single<NotaDAO>{ provideDatabase(get()).notaDAO() }
         single<NotaRepository> { RoomNotasRepository(get()) }
         viewModel { NotasViewModel(get()) }
     }
+
     override fun onCreate() {
         super.onCreate()
         startKoin{
@@ -23,5 +28,9 @@ class NotesAppKoin : Application() {
             androidContext(this@NotesAppKoin)
             modules(appModule)
         }
+    }
+
+    private fun provideDatabase(context: Context):NotaDatabase{
+        return Room.databaseBuilder(context,NotaDatabase::class.java,"database-notas").build()
     }
 }

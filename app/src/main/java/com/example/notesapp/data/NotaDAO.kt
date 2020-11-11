@@ -3,7 +3,7 @@ package com.example.notesapp.data
 import androidx.room.*
 
 @Dao
-interface NotaDAO { // Acá también pueden ir insert, update, etc...
+interface NotaDAO {
     @Query("SELECT * FROM notas")
     suspend fun getAll():List<NotaEntity>
 

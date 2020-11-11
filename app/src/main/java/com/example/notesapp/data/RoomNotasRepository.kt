@@ -13,6 +13,10 @@ class RoomNotasRepository (private val notaDAO: NotaDAO): NotaRepository, RoomNo
         notaDAO.insertarNota(entity)
     }
 
+    override suspend fun insertarNota(nota: NotaEntity) {
+        notaDAO.insertarNota(nota)
+    }
+
     override suspend fun getAll(): List<Nota> {
         return notaDAO.getAll().map{Nota(id = it.id, description = it.description,srcImagen = it.srcImagen)}
     }

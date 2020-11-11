@@ -33,6 +33,10 @@ class NotasAdapter : RecyclerView.Adapter<ViewHolder>() {
         listaNotas.addAll(it)
     }
 
+    fun guardar(){
+
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.description.setText(listaNotas.get(position).description)
         holder.imageView.loadUrl(listaNotas.get(position).srcImagen)
