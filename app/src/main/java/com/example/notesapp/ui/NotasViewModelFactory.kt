@@ -16,6 +16,6 @@ class NotasViewModelFactory(private val applicationContext: Context) : ViewModel
         )
         .build()
         val dao = database.notaDAO()
-        return NotasViewModel(RoomNotasRepository(dao)) as T
+        return VerNotasViewModel(RoomNotasRepository(dao)) as T
     }
 }

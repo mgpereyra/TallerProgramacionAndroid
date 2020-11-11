@@ -10,4 +10,10 @@
     <string name="galeria">Galeria</string>
     <string name="cancelar">Cancelar</string>
     <string name="su_imagen_aqu">Su imagen aquí</string>
+    <string name="debe_ingresar_una_descripcion_y_una_imagen">Debe ingresar una descripción y una imagen</string>
+    <string name="nota_guardada">Se ha guardado la nota</string>
+    <string name="camara_no_disponible">La cámara no está disponible ya que se denegaron los permisos necesarios...</string>
+    <string name="funcion_no_disponible">Función no disponible en esta versión de Android...</string>
+    <string name="error">Error!</string>
+    <string name="foto_no_guardada">No se ha podido guardar la foto</string>
 </resources>

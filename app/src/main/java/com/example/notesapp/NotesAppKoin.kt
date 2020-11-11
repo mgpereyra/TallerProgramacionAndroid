@@ -7,7 +7,7 @@ import com.example.notesapp.data.NotaDAO
 import com.example.notesapp.data.NotaDatabase
 import com.example.notesapp.data.RoomNotasRepository
 import com.example.notesapp.model.NotaRepository
-import com.example.notesapp.ui.NotasViewModel
+import com.example.notesapp.ui.VerNotasViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -18,7 +18,7 @@ class NotesAppKoin : Application() {
     val appModule = module {
         single<NotaDAO>{ provideDatabase(get()).notaDAO() }
         single<NotaRepository> { RoomNotasRepository(get()) }
-        viewModel { NotasViewModel(get()) }
+        viewModel { VerNotasViewModel(get()) }
     }
 
     override fun onCreate() {
