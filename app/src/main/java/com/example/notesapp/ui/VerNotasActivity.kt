@@ -1,9 +1,7 @@
 package com.example.notesapp.ui
 
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +19,7 @@ class VerNotasActivity : AppCompatActivity() {
         binding = ActivityVerNotasBinding.inflate(layoutInflater)
         setContentView(binding.root)
         adapter = NotasAdapter()
+        validarPermisos()
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(this@VerNotasActivity, LinearLayoutManager.VERTICAL, false)
             this.adapter = this@VerNotasActivity.adapter
@@ -30,5 +29,12 @@ class VerNotasActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         })
         binding.btnVolver.setOnClickListener { onBackPressed() }
+    }
+
+    private fun validarPermisos(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val permisosCamara = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            requestPermissions(permisosCamara,101)
+        }
     }
 }
