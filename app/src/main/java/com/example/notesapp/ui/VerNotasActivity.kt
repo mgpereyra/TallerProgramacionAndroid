@@ -25,10 +25,15 @@ class VerNotasActivity : AppCompatActivity() {
             this.adapter = this@VerNotasActivity.adapter
         }
         viewModelVer.notasLiveData.observe(this, Observer {
-            adapter.submitList(it.reversed())
+            adapter.submitList(it.reversed(), viewModelVer, this)
             adapter.notifyDataSetChanged()
         })
         binding.btnVolver.setOnClickListener { onBackPressed() }
+    }
+
+    override fun onResume(){
+        super.onResume()
+        viewModelVer.actualizarLista()
     }
 
     private fun validarPermisos(){

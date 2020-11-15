@@ -9,4 +9,6 @@ import com.example.notesapp.R
 class ViewHolder(view: View): RecyclerView.ViewHolder(view){
     val imageView = view.findViewById<ImageView>(R.id.imageView)
     val description = view.findViewById<TextView>(R.id.description)
+    val botonBorrarNota = view.findViewById<TextView>(R.id.btnBorrarNota)
+    val botonModificarNota = view.findViewById<TextView>(R.id.btnModificarNota)
 }

@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.example.notesapp.data.NotaDatabase
 import com.example.notesapp.data.RoomNotasRepository
 
+@Suppress("UNCHECKED_CAST")
 class NotasViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory{
     override fun <T: ViewModel?> create(modelClass: Class<T>): T {
         val database = Room.databaseBuilder(

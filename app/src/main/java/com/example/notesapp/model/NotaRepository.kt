@@ -7,4 +7,5 @@ interface NotaRepository {
     suspend fun getAll(): List<Nota>
     suspend fun delete(nota: Nota)
     suspend fun delete()
+    suspend fun modificarNota(nota: NotaEntity)
 }

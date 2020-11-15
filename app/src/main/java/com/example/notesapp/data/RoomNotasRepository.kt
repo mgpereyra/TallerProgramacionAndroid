@@ -22,10 +22,14 @@ class RoomNotasRepository (private val notaDAO: NotaDAO): NotaRepository, RoomNo
     }
 
     override suspend fun delete(nota: Nota) {
-
+        notaDAO.delete(NotaEntity(nota.id,nota.description,nota.srcImagen))
     }
 
     override suspend fun delete() {
 
+    }
+
+    override suspend fun modificarNota(nota: NotaEntity) {
+        notaDAO.modificarNota(nota)
     }
 }

@@ -15,4 +15,8 @@ interface NotaDAO {
 
     @Delete
     suspend fun delete(entity: NotaEntity)
+
+    @Update()
+    suspend fun modificarNota(entity: NotaEntity)
+
 }
