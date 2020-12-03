@@ -35,13 +35,13 @@ class CrearNotasViewModel(private val notasRepository: NotaRepository
         }
     }
 
-    private fun actualizarNota(notaEntity: NotaEntity) {
+    fun actualizarNota(notaEntity: NotaEntity) {
         viewModelScope.launch {
             notasRepository.modificarNota(notaEntity)
         }
     }
 
-    private fun insertarEnDatabase(nota: NotaEntity) {
+    fun insertarEnDatabase(nota: NotaEntity) {
         viewModelScope.launch {
             notasRepository.insertarNota(nota)
         }
