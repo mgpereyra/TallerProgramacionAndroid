@@ -6,7 +6,7 @@ import androidx.room.Room
 import com.example.notesapp.data.NotaDAO
 import com.example.notesapp.data.NotaDatabase
 import com.example.notesapp.data.RoomNotasRepository
-import com.example.notesapp.model.NotaRepository
+import com.example.notesapp.data.NotaRepository
 import com.example.notesapp.ui.CrearNotasViewModel
 import com.example.notesapp.ui.VerNotasViewModel
 import org.koin.android.ext.koin.androidContext

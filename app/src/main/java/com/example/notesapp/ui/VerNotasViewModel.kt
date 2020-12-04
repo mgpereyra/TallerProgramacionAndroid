@@ -3,9 +3,8 @@ package com.example.notesapp.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.notesapp.data.NotaEntity
 import com.example.notesapp.model.Nota
-import com.example.notesapp.model.NotaRepository
+import com.example.notesapp.data.NotaRepository
 import kotlinx.coroutines.*
 
 class VerNotasViewModel(private val notasRepository: NotaRepository

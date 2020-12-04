@@ -1,6 +1,6 @@
-package com.example.notesapp.model
+package com.example.notesapp.data
 
-import com.example.notesapp.data.NotaEntity
+import com.example.notesapp.model.Nota
 
 interface NotaRepository {
     suspend fun insertarNota(nota: NotaEntity)

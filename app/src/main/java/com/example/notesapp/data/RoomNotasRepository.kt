@@ -1,7 +1,6 @@
 package com.example.notesapp.data
 
 import com.example.notesapp.model.Nota
-import com.example.notesapp.model.NotaRepository
 
 class RoomNotasRepository (private val notaDAO: NotaDAO): NotaRepository, RoomNotasRepositoryInterface {
 
