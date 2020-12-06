@@ -11,25 +11,50 @@ class VerNotasViewModel(private val notasRepository: NotaRepository
     ) : ViewModel() {
 
     val notasLiveData = MutableLiveData<List<Nota>>()
+    val status = MutableLiveData<Status>()
 
     init {
         viewModelScope.launch { getNotasList() }
     }
 
     fun actualizarLista(){
-        viewModelScope.launch { getNotasList() }
+        getNotasList()
     }
 
-    suspend fun getNotasList() {
-        notasLiveData.value = notasRepository.getAll()
+    fun getNotasList() {
+        viewModelScope.launch {
+            try {
+                notasLiveData.value = notasRepository.getAll()
+                status.value = Status.SUCCESS
+            } catch (e: Exception) {
+                status.value = Status.ERROR
+            }
+        }
     }
 
     fun borrarNota(nota: Nota){
-        viewModelScope.launch { delete(nota) }
+        viewModelScope.launch {
+            try {
+                delete(nota)
+                status.value = Status.SUCCESS
+            }catch(e: Exception){
+                status.value = Status.ERROR
+            }
+        }
     }
 
     suspend fun delete(nota: Nota){
-        notasRepository.delete(nota)
-        notasLiveData.value = notasRepository.getAll()
+        try {
+            notasRepository.delete(nota)
+            notasLiveData.value = notasRepository.getAll()
+            status.value = Status.SUCCESS
+        }catch(e: Exception){
+            status.value = Status.ERROR
+        }
+    }
+
+    enum class Status{
+        SUCCESS,
+        ERROR
     }
 }

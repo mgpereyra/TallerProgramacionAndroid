@@ -15,10 +15,15 @@ class CrearNotasViewModel(private val notasRepository: NotaRepository
 
     fun validarGuardar(description: String, pathImagen: String, nota: Nota?): Boolean {
         try {
-            if (nota == null) {
-                if (description.trim() == "" || pathImagen == "") {
-                    status.value = Status.ERROR
-                    return false
+            if (description.trim() != "" && pathImagen != ""){
+                if (nota != null) {
+                    actualizarNota(
+                        NotaEntity(
+                            id = nota.id,
+                            description = description,
+                            srcImagen = pathImagen
+                        )
+                    )
                 } else {
                     insertarEnDatabase(
                         NotaEntity(
@@ -26,19 +31,12 @@ class CrearNotasViewModel(private val notasRepository: NotaRepository
                             srcImagen = pathImagen
                         )
                     )
-                    status.value = Status.SUCCESS
-                    return true
                 }
-            } else {
-                actualizarNota(
-                    NotaEntity(
-                        id = nota.id,
-                        description = description,
-                        srcImagen = pathImagen
-                    )
-                )
                 status.value = Status.SUCCESS
                 return true
+            } else {
+                status.value = Status.ERROR
+                return false
             }
         } catch (ignored: Exception){
             status.value = Status.ERROR
@@ -48,19 +46,28 @@ class CrearNotasViewModel(private val notasRepository: NotaRepository
 
     fun actualizarNota(notaEntity: NotaEntity) {
         viewModelScope.launch {
-            notasRepository.modificarNota(notaEntity)
+            try {
+                notasRepository.modificarNota(notaEntity)
+                status.value = Status.SUCCESS
+            }catch(e: Exception){
+                status.value = Status.ERROR
+            }
         }
     }
 
     fun insertarEnDatabase(nota: NotaEntity) {
         viewModelScope.launch {
-            notasRepository.insertarNota(nota)
+            try {
+                notasRepository.insertarNota(nota)
+                status.value = Status.SUCCESS
+            }catch(e: Exception){
+                status.value = Status.ERROR
+            }
         }
     }
 
     enum class Status{
         SUCCESS,
-        ERROR,
-        NOT_VALID
+        ERROR
     }
 }
